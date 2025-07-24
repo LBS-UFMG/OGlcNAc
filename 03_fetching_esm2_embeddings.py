@@ -58,6 +58,31 @@ for i, df in enumerate(df_list):
   pd.DataFrame(df).to_csv(output_filename, index=False)
   print(f"DataFrame saved to {output_filename}")
 
+for i, df in enumerate(df_list):
+  if i == 0:
+    output_filename = 'data_processed/'+'03_seqs_'+model_name[9:]+'_training.h5'
+  if i == 1:
+    output_filename = 'data_processed/'+'03_seqs_'+model_name[9:]+'_validation.h5'
+  if i == 2:
+    output_filename = 'data_processed/'+'03_seqs_'+model_name[9:]+'_testing.h5'
+
+  if not os.path.exists(output_filename):
+    with h5py.File(output_filename, 'w') as f:
+      # Save other columns as datasets
+      f.create_dataset('entry_name', data=df['entry_name'].values.astype('S')) # Convert to fixed-width string
+      f.create_dataset('accession', data=df['accession'].values.astype('S'))
+      f.create_dataset('site_residue', data=df['site_residue'].values.astype('S'))
+      f.create_dataset('position_in_protein', data=df['position_in_protein'].values)
+      f.create_dataset('OGlcNAc', data=df['OGlcNAc'].values)
+      f.create_dataset('species', data=df['species'].values.astype('S'))
+      f.create_dataset('sequence', data=df['sequence'].values.astype('S')) # Convert to fixed-width string
+
+
+      # Save the 'embedding' column as a dataset of fixed-size arrays
+      f.create_dataset('embedding', data=np.vstack(df['embedding'].values))
+
+    print(f"DataFrame saved to {output_filename}")
+
 batch_size = 64
 
 for df in [df_entire]:
