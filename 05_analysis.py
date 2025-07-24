@@ -264,7 +264,7 @@ for prob_level in [0.99, 0.95, 0.9, 0.5]:
   df_export.rename(columns={'site_residue':'residue', 'entry_name':'entry', 'position_in_protein':'position'}, inplace=True)
   df_export.sort_values(by=['entry', 'accession', 'position'], inplace=True)
   df_export.reset_index(drop=True, inplace=True)
-  df_export.to_excel('/data_processed/list_of_new_discoveries_with_probability_greater_or_equal_to_'+str(prob_level)+'.xlsx')
+  df_export.to_excel('/results/list_of_new_discoveries_with_probability_greater_or_equal_to_'+str(prob_level)+'.xlsx')
 
   print(f'{len(df_export)} entries saved to, with probability greater of equal to {prob_level} of being a new discovery.')
 
