@@ -2,7 +2,7 @@ import pandas as pd
 import requests
 from tqdm import tqdm
 
-df = pd.read_csv(dir+'data/Atlas 4.0_unambiguous sites_20241217.csv')
+df = pd.read_csv('data/Atlas 4.0_unambiguous sites_20241217.csv')
 
 total_length = len(df)
 print('Total number of entries:', total_length)
